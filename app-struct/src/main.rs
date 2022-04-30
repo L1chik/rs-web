@@ -1,11 +1,17 @@
-use std::collections::HashMap;
+use std::env;
 
 fn main() {
-    let mut gmap = HashMap::new();
-    gmap.insert("test", 25);
+    let args: Vec<String> = env::args().collect();
+    let path = &args[0];
 
-    match gmap.get("test") {
-        None => eprintln!("There is no such key"),
-        Some(t) => println!("Result is: {}", t)
+    if path.contains("/debug") {
+        println!("The dev app is running");
     }
+    else if path.contains("/release/") {
+        print!("The prod is running");
+    } else {
+        panic!("unable ro run");
+    }
+
+    println!("{:?}", args)
 }
